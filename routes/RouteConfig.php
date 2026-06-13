@@ -6,11 +6,11 @@
 // Licensed under the terms of the LICENSE file in the project root directory.
 // ============================================================================
 
-namespace ProjectName\Routes;
+namespace Routes;
 
 
-use ProjectName\App\Http\Controllers\Example1Controller;
-use ProjectName\App\Http\Controllers\Example2Controller;
+use App\Http\Controllers\Example1Controller;
+use App\Http\Controllers\Example2Controller;
 
 use Seymenkonuk\Framework\Router;
 

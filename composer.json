@@ -11,9 +11,9 @@
     ],
     "autoload": {
         "psr-4": {
-            "ProjectName\\App\\": "app/",
-            "ProjectName\\Config\\": "config/",
-            "ProjectName\\Routes\\": "routes/"
+            "App\\": "app/",
+            "Config\\": "config/",
+            "Routes\\": "routes/"
         }
     },
     "require": {

@@ -6,7 +6,7 @@
 // Licensed under the terms of the LICENSE file in the project root directory.
 // ============================================================================
 
-namespace ProjectName\App\Http\Controllers;
+namespace App\Http\Controllers;
 
 
 use Seymenkonuk\Framework\Controller;

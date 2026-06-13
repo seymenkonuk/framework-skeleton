@@ -6,11 +6,11 @@
 // Licensed under the terms of the LICENSE file in the project root directory.
 // ============================================================================
 
-namespace ProjectName\App\Http\Controllers;
+namespace App\Http\Controllers;
 
 
-use ProjectName\App\Http\Schemas\ExampleSchema;
-use ProjectName\App\Http\Middlewares\ExampleMiddleware;
+use App\Http\Schemas\ExampleSchema;
+use App\Http\Middlewares\ExampleMiddleware;
 
 use Seymenkonuk\Framework\Controller;
 use Seymenkonuk\Framework\Response;
