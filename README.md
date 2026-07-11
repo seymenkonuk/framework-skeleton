@@ -1,5 +1,5 @@
 # Framework Skeleton
-> seymenkonuk/framework kullanılarak hazırlanmış başlangıç projesi. Yeni uygulamalar için hızlı kurulum sağlar.
+> seymenkonuk/framework ile yeni PHP projeleri oluşturmak için hazırlanmış proje şablonu.
 
 ## Açıklama
 seymenkonuk/framework ile geliştirme yapmak için hazırlanmış basit bir başlangıç projesidir.
