@@ -40,11 +40,14 @@ RUN docker-php-ext-install \
     zip \
     opcache
 
+# PHP Projesini Al
+COPY . .
+
 # vendor klasörünü composer stage'den al
 COPY --from=vendor /app/vendor ./vendor
 
 # Ayar Dosyasını Al
-COPY docker/php/uploads.ini /usr/local/etc/php/conf.d/uploads.ini
+COPY docker/php/php.ini /usr/local/etc/php/conf.d/php.ini
 
 # izinler
 RUN chown -R www-data:www-data /var/www/html
