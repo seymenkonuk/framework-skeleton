@@ -9,16 +9,17 @@
 namespace App\Http\Middlewares;
 
 
-use Seymenkonuk\Framework\Middleware;
-use Seymenkonuk\Framework\Request;
-use Seymenkonuk\Framework\Response;
+use Closure;
+
+use Seymenkonuk\Framework\Http\Middleware;
+use Seymenkonuk\Framework\Http\Request\IRequest;
+use Seymenkonuk\Framework\Http\Response\IResponse;
 
 
 class ExampleMiddleware extends Middleware
 {
-    /** @param callable(Request): Response $next */
-    public function handle(Request $request, callable $next): Response
+    public function handle(IRequest $request, IResponse $response, Closure $next): IResponse
     {
-        return $next($request);
+        return $next($request, $response);
     }
 }
