@@ -9,48 +9,18 @@
 namespace App\Http\Schemas;
 
 
-use Seymenkonuk\Framework\Schema;
-
+use Seymenkonuk\Framework\Http\RequestSchema\ValidatorRequestSchema;
 use Seymenkonuk\Validator\Validator\ObjectValidator;
-use Seymenkonuk\Validator\Validator\Validator;
 
 
-class ExampleSchema extends Schema
+class ExampleSchema extends ValidatorRequestSchema
 {
-    public function __construct(
-        protected Validator $validator
-    ) {
-        parent::__construct($validator);
-    }
-
-    public function body(): ObjectValidator
-    {
-        return $this->validator->object()->schema([]);
-    }
-
     public function query(): ObjectValidator
     {
-        return $this->validator->object()->schema([]);
-    }
-
-    public function params(): ObjectValidator
-    {
-        return $this->validator->object()->schema([]);
-    }
-
-    public function files(): ObjectValidator
-    {
-        return $this->validator->object()->schema([]);
-    }
-
-    /**
-     * @return array{
-     *      title: string,
-     *      description: string
-     * }|null
-     */
-    public function authorize(): array|null
-    {
-        return null;
+        return $this->validator->object()->schema([
+            "test" => $this->validator->field()
+                ->int(false)
+                ->required(),
+        ]);
     }
 }
