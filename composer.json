@@ -1,6 +1,6 @@
 {
     "name": "seymenkonuk/framework-skeleton",
-    "description": "seymenkonuk/framework kullanılarak hazırlanmış başlangıç projesi. Yeni uygulamalar için hızlı kurulum sağlar.",
+    "description": "seymenkonuk/framework ile MVC tabanlı yeni PHP projeleri oluşturmak için hazırlanmış proje şablonu.",
     "type": "project",
     "license": "MIT",
     "authors": [
