@@ -19,8 +19,7 @@ class ExampleSchema extends ValidatorRequestSchema
     {
         return $this->validator->object()->schema([
             "test" => $this->validator->field()
-                ->int(false)
-                ->required(),
+                ->int(false),
         ]);
     }
 }
