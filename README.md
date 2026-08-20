@@ -1,16 +1,16 @@
 # Framework Skeleton
-> seymenkonuk/framework ile yeni PHP projeleri oluşturmak için hazırlanmış proje şablonu.
+> seymenkonuk/framework ile MVC tabanlı yeni PHP projeleri oluşturmak için hazırlanmış proje şablonu.
 
 ## Açıklama
-seymenkonuk/framework ile geliştirme yapmak için hazırlanmış basit bir başlangıç projesidir.
+seymenkonuk/framework ile MVC yapısında uygulamalar geliştirmek için hazırlanmış basit bir başlangıç projesidir.
 
-Docker desteği sayesinde PHP ortamı, web server ve gerekli servisler ekstra kurulum gerektirmeden çalıştırılabilir. Amaç, yeni bir projeye hızlı ve temiz bir başlangıç yapmaktır.
+Docker desteği sayesinde PHP ortamı, web server ve gerekli servisler ekstra kurulum gerektirmeden çalıştırılabilir. Amaç, yeni bir MVC projesine hızlı ve temiz bir başlangıç yapmaktır.
 
 ## Özellikler
 
 - Docker destekli geliştirme ortamı
 - seymenkonuk/framework entegrasyonu
-- Hazır proje klasör yapısı
+- Hazır MVC proje klasör yapısı
 - Örnek controller ve route yapısı
 - Basit ve genişletilebilir mimari
 
