@@ -1,6 +1,6 @@
 <?php
 // ============================================================================
-// File:    index.php
+// File:    WebRoutes.php
 // Author:  Recep Seymen Konuk <konukrecepseymen@gmail.com>
 //
 // Licensed under the terms of the LICENSE file in the project root directory.
@@ -9,17 +9,16 @@
 namespace Routes;
 
 
-use App\Http\Controllers\Example1Controller;
-use App\Http\Controllers\Example2Controller;
+use App\Http\Controllers\ExampleController;
 
-use Seymenkonuk\Framework\Router;
+use Seymenkonuk\Framework\Routing\RouteConfig;
+use Seymenkonuk\Framework\Routing\Router;
 
 
-class RouteConfig
+class WebRoutes extends RouteConfig
 {
-    public function register(Router $router)
+    public function register(Router $router): void
     {
-        $router->get("/", [Example1Controller::class, "index"]);
-        $router->registerController(Example2Controller::class);
+        $router->registerController(ExampleController::class);
     }
 }
