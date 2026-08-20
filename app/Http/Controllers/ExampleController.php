@@ -13,6 +13,7 @@ use App\Http\Middlewares\ExampleMiddleware;
 use App\Http\Schemas\ExampleSchema;
 
 use Seymenkonuk\Framework\Attribute\Middleware;
+use Seymenkonuk\Framework\Attribute\Route\Get;
 use Seymenkonuk\Framework\Attribute\Schema;
 use Seymenkonuk\Framework\Http\Controller;
 use Seymenkonuk\Framework\Http\Request\IRequest;
@@ -22,6 +23,7 @@ use Seymenkonuk\Framework\Http\Response\IResponse;
 #[Middleware(ExampleMiddleware::class)]
 class ExampleController extends Controller
 {
+    #[Get("/")]
     #[Schema(ExampleSchema::class)]
     public function index(IRequest $request, IResponse $response): IResponse
     {
