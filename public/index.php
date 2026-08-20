@@ -9,37 +9,86 @@
 require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR .  "vendor" . DIRECTORY_SEPARATOR . "autoload.php");
 
 
-use Routes\RouteConfig;
+use App\Domain\Services\AuthService;
+
+use Routes\WebRoutes;
 
 use Seymenkonuk\Framework\Application;
-use Seymenkonuk\Framework\Response;
-
-use Seymenkonuk\Framework\Exception\AuthorizationException;
+use Seymenkonuk\Framework\Auth\IAuthService;
+use Seymenkonuk\Framework\Cache\ICache;
+use Seymenkonuk\Framework\Cache\RedisCache;
+use Seymenkonuk\Framework\CsrfToken\ICsrfTokenManager;
+use Seymenkonuk\Framework\CsrfToken\SessionCsrfTokenManager;
+use Seymenkonuk\Framework\Database\Connection\ISqlConnection;
+use Seymenkonuk\Framework\Database\Connection\MysqlConnection;
 use Seymenkonuk\Framework\Exception\FileNotFoundException;
 use Seymenkonuk\Framework\Exception\RouteNotFoundException;
 use Seymenkonuk\Framework\Exception\ValidationException;
+use Seymenkonuk\Framework\Flash\IFlash;
+use Seymenkonuk\Framework\Flash\SessionFlash;
+use Seymenkonuk\Framework\Http\Exception\AuthorizationException;
+use Seymenkonuk\Framework\Http\Request\Request;
+use Seymenkonuk\Framework\Http\Response\IResponse;
+use Seymenkonuk\Framework\Session\ISession;
+use Seymenkonuk\Framework\Session\PhpSession;
+use Seymenkonuk\Framework\TemplateEngine\ITemplateEngine;
+use Seymenkonuk\Framework\TemplateEngine\PlatesTemplateEngine;
+
+use Seymenkonuk\Validator\Localization\FileLoader;
+use Seymenkonuk\Validator\Localization\Translator;
+use Seymenkonuk\Validator\Validator\Validator;
 
 
-Application::configure(dirname(__DIR__) . DIRECTORY_SEPARATOR . "app")
-    ->withRouting(RouteConfig::class)
-    ->withDbConfig(
-        getenv("DB_HOST"),
-        getenv("DB_PORT"),
-        getenv("DB_DATABASE"),
-        getenv("DB_CHARSET"),
-        getenv("DB_USERNAME"),
-        getenv("DB_PASSWORD"),
-    )
-    ->withException(function (RouteNotFoundException|FileNotFoundException $exception, Response $response) {
+$app = new Application();
+
+$app->withRouting(WebRoutes::class)
+    ->withBindings([
+        IAuthService::class => AuthService::class,
+        ICache::class => RedisCache::class,
+        ICsrfTokenManager::class => SessionCsrfTokenManager::class,
+        IFlash::class => SessionFlash::class,
+        ISession::class => PhpSession::class,
+        ISqlConnection::class => MysqlConnection::class,
+        ITemplateEngine::class => PlatesTemplateEngine::class,
+    ])
+    ->withSingletons([
+        RedisCache::class => function () {
+            return new RedisCache(
+                getenv("REDIS_HOST"),
+                getenv("REDIS_PORT"),
+                getenv("REDIS_PASSWORD"),
+            );
+        },
+        MysqlConnection::class => function () {
+            return new MysqlConnection(
+                getenv("DB_HOST"),
+                getenv("DB_PORT"),
+                getenv("DB_DATABASE"),
+                getenv("DB_CHARSET"),
+                getenv("DB_USERNAME"),
+                getenv("DB_PASSWORD"),
+            );
+        },
+        PlatesTemplateEngine::class => function () {
+            return new PlatesTemplateEngine(dirname(__DIR__) . DIRECTORY_SEPARATOR . "app" . DIRECTORY_SEPARATOR . "Views");
+        },
+        Validator::class => function () {
+            return new Validator(new Translator(
+                new FileLoader(),
+                "tr",
+            ));
+        }
+    ])
+    ->withException(function (RouteNotFoundException|FileNotFoundException $exception, IResponse $response): IResponse {
         return $response->notFound();
     })
-    ->withException(function (ValidationException $exception, Response $response) {
+    ->withException(function (ValidationException $exception, IResponse $response): IResponse {
         return $response->badRequest();
     })
-    ->withException(function (AuthorizationException $exception, Response $response) {
+    ->withException(function (AuthorizationException $exception, IResponse $response): IResponse {
         return $response->forbidden();
     })
-    ->withException(function (Throwable $exception, Response $response) {
+    ->withException(function (Throwable $exception, IResponse $response): IResponse {
         return $response->internalServerError();
     })
-    ->run();
+    ->run(Request::capture());
